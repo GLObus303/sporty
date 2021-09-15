@@ -1,8 +1,10 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 
 import { GlobalStyle } from '../components/GlobalStyle';
+import { appTheme } from '../constants/theme';
 
 const CustomApp = ({ Component, pageProps }: AppProps) => (
   <>
@@ -11,7 +13,9 @@ const CustomApp = ({ Component, pageProps }: AppProps) => (
     </Head>
     <GlobalStyle />
 
-    <Component {...pageProps} />
+    <ThemeProvider theme={appTheme}>
+      <Component {...pageProps} />
+    </ThemeProvider>
   </>
 );
 

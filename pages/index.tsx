@@ -1,13 +1,7 @@
 import { NextPage } from 'next';
-import React from 'react';
-import styled from 'styled-components';
 
-const Title = styled.h1`
-  font-size: 50px;
-`;
+import { Layout } from '../components/Layout';
 
-const Home: NextPage = () => {
-  return <Title>Welcome!</Title>;
-};
+const Home: NextPage = () => <Layout>Content</Layout>;
 
 export default Home;
