@@ -40,10 +40,10 @@
     "typescript": "^4.2.2"
   },
   "lint-staged": {
-    "src/**/*.{js,ts?(x)}": [
+    "**/*.{js,ts?(x)}": [
       "eslint --fix"
     ],
-    "src/**/*.{js,ts,tsx}": [
+    "**/*.{js,ts,tsx}": [
       "prettier --write"
     ]
   },
