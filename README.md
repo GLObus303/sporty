@@ -1,27 +1,6 @@
-# Next.js template
+# Sporty web
 
-This is template for Next.js app with styled-component and next-i18next
-
-## To use the project as a template
-
-1. Simply clone the repo and copy the needed files to your existing project
-
-**-or-**
-
-1. Clone the repo, change the remote
-
-```js
-git remote -v
-git remote remove origin
-git remote add origin <repo-url>
-```
-
-2. Change the project name in folder
-3. Change the project name in package.json
-
-**-or-**
-
-1. Use Github's "Use this template"
+Project for cooperating with other like-minded sports enthusiasts done with Next.js and styled-components for the near vanilla CSS experience.
 
 ## To run the project for development
 
