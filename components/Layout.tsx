@@ -15,7 +15,7 @@ const Header = styled.header`
 
 const Content = styled.main`
   flex: 1 0 auto;
-  padding: 2rem;
+  padding: 0rem;
 `;
 
 const Footer = styled.footer`
