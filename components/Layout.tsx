@@ -8,7 +8,7 @@ const Container = styled.div`
 
 const Header = styled.header`
   padding: 1rem 2rem;
-  background-color: ${({ theme }) => theme.color.sunRay};
+  background-color: ${({ theme }) => theme.color.cream};
   font-size: 1.5rem;
   font-weight: 700;
 `;
@@ -19,13 +19,14 @@ const Content = styled.main`
 `;
 
 const Footer = styled.footer`
+  margin-top: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
   padding: 1rem;
-  background-color: ${({ theme }) => theme.color.sunRay};
-  color: ${({ theme }) => theme.color.cheerfulHue};
+  background-color: ${({ theme }) => theme.color.cream};
+  color: ${({ theme }) => theme.color.darkSienna};
 `;
 
 export const Layout: React.FC = ({ children }) => (
