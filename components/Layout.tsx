@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Link from 'next/link';
 
 const Container = styled.div`
   min-height: 100%;
@@ -11,6 +12,11 @@ const Header = styled.header`
   background-color: ${({ theme }) => theme.color.cream};
   font-size: 1.5rem;
   font-weight: 700;
+
+  a {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
 `;
 
 const Content = styled.main`
@@ -30,7 +36,9 @@ const Footer = styled.footer`
 
 export const Layout: React.FC = ({ children }) => (
   <Container>
-    <Header>Sporty</Header>
+    <Header>
+      <Link href="/">Sporty</Link>
+    </Header>
     <Content>{children}</Content>
     <Footer>© 2021 Ryonyx</Footer>
   </Container>

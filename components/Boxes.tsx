@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 const Container = styled.div`
   display: flex;
@@ -48,25 +48,10 @@ const Card = styled.div`
 
 const sports = ['fotbal', 'tenis', 'bowling', 'pingpong'];
 
-const ActiveLink: React.FC = ({ children, href }) => {
-  const router = useRouter();
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    router.push(href);
-  };
-
-  return (
-    <a href={href} onClick={handleClick}>
-      {children}
-    </a>
-  );
-};
-
 export const Boxes: React.FC = () => (
   <Container>
     {sports.map((sport, index) => (
-      <ActiveLink href="/detail" key={index}>
+      <Link href="/detail" key={index}>
         <Card>
           <TextContainer>
             <h2>{sport}</h2>
@@ -79,7 +64,7 @@ export const Boxes: React.FC = () => (
             </Text>
           </TextContainer>
         </Card>
-      </ActiveLink>
+      </Link>
     ))}
   </Container>
 );
