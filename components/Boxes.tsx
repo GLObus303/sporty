@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -47,21 +48,38 @@ const Card = styled.div`
 
 const sports = ['fotbal', 'tenis', 'bowling', 'pingpong'];
 
-export const Boxes = () => (
+const ActiveLink: React.FC = ({ children, href }) => {
+  const router = useRouter();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    router.push(href);
+  };
+
+  return (
+    <a href={href} onClick={handleClick}>
+      {children}
+    </a>
+  );
+};
+
+export const Boxes: React.FC = () => (
   <Container>
-    {sports.map((sport) => (
-      <Card>
-        <TextContainer>
-          <h2>{sport}</h2>
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-            sodales posuere felis non efficitur. Mauris mollis elit urna, id
-            tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Phasellus sodales posuere felis non efficitur. Mauris mollis elit
-            urna, id tempus.
-          </Text>
-        </TextContainer>
-      </Card>
+    {sports.map((sport, index) => (
+      <ActiveLink href="/detail" key={index}>
+        <Card>
+          <TextContainer>
+            <h2>{sport}</h2>
+            <Text>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+              sodales posuere felis non efficitur. Mauris mollis elit urna, id
+              tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Phasellus sodales posuere felis non efficitur. Mauris mollis elit
+              urna, id tempus.
+            </Text>
+          </TextContainer>
+        </Card>
+      </ActiveLink>
     ))}
   </Container>
 );

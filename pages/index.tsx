@@ -53,7 +53,6 @@ const Home: NextPage = () => (
       <Headline>Do what you love, but with people!</Headline>
       <DiscoverButton>DISCOVER</DiscoverButton>
     </HeroSection>
-
     <Boxes />
   </Layout>
 );

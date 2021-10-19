@@ -19,7 +19,6 @@ const Content = styled.main`
 `;
 
 const Footer = styled.footer`
-  margin-top: auto;
   display: flex;
   justify-content: center;
   align-items: center;
