@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const DetailBox = styled.div`
   display: flex;
   min-width: 50%;
-  min-height: 90%;
+  min-height: 100%;
   background-color: white;
   overflow: hidden;
 `;

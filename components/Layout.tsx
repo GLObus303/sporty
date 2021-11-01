@@ -20,6 +20,7 @@ const Header = styled.header`
 `;
 
 const Content = styled.main`
+  height: 100%;
   flex: 1 0 auto;
   padding: 0rem;
 `;

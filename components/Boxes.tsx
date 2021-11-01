@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 import styled from 'styled-components';
 import Link from 'next/link';
 
@@ -46,25 +48,34 @@ const Card = styled.div`
   }
 `;
 
-const sports = ['fotbal', 'tenis', 'bowling', 'pingpong'];
+export const Boxes: React.FC = () => {
+  const [books, setBooks] = useState();
+  const sports = ['fotbal', 'tenis', 'bowling', 'pingpong'];
 
-export const Boxes: React.FC = () => (
-  <Container>
-    {sports.map((sport, index) => (
-      <Link href="/detail" key={index}>
-        <Card>
-          <TextContainer>
-            <h2>{sport}</h2>
-            <Text>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              sodales posuere felis non efficitur. Mauris mollis elit urna, id
-              tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Phasellus sodales posuere felis non efficitur. Mauris mollis elit
-              urna, id tempus.
-            </Text>
-          </TextContainer>
-        </Card>
-      </Link>
-    ))}
-  </Container>
-);
+  useEffect(() => {
+    fetch('https://my.backend/book')
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
+
+  return (
+    <Container>
+      {sports.map((sport, index) => (
+        <Link href="/detail" key={index}>
+          <Card>
+            <TextContainer>
+              <h2>{sport}</h2>
+              <Text>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Phasellus sodales posuere felis non efficitur. Mauris mollis
+                elit urna, id tempus. Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit. Phasellus sodales posuere felis non efficitur.
+                Mauris mollis elit urna, id tempus.
+              </Text>
+            </TextContainer>
+          </Card>
+        </Link>
+      ))}
+    </Container>
+  );
+};

@@ -1,34 +1,25 @@
 import { rest } from 'msw';
 
 export const handlers = [
-  rest.post('/login', (req, res, ctx) => {
-    // Persist user's authentication in the session
-    sessionStorage.setItem('is-authenticated', 'true');
-
-    return res(
-      // Respond with a 200 status code
-      ctx.status(200),
+  rest.get('https://my.backend/book', (req, res, ctx) => {
+    res(
+      ctx.json({
+        title: 'Lord of the Rings',
+        imageUrl: '/book-cover.jpg',
+        description:
+          'The Lord of the Rings is an epic high-fantasy novel written by English author and scholar J. R. R. Tolkien.',
+      }),
     );
   }),
-  rest.get('/user', (req, res, ctx) => {
-    // Check if the user is authenticated in this session
-    const isAuthenticated = sessionStorage.getItem('is-authenticated');
-    if (!isAuthenticated) {
-      // If not authenticated, respond with a 403 error
-      return res(
-        ctx.status(403),
-        ctx.json({
-          errorMessage: 'Not authorized',
-        }),
-      );
-    }
-
-    // If authenticated, return a mocked user details
-    return res(
-      ctx.status(200),
-      ctx.json({
-        username: 'admin',
-      }),
+  rest.get('/reviews', (req, res, ctx) => {
+    res(
+      ctx.json([
+        {
+          id: '60333292-7ca1-4361-bf38-b6b43b90cb16',
+          author: 'John Maverick',
+          text: 'Lord of The Rings, is with no absolute hesitation, my most favored and adored book by‑far. The triology is wonderful‑ and I really consider this a legendary fantasy series. It will always keep you at the edge of your seat‑ and the characters you will grow and fall in love with!',
+        },
+      ]),
     );
   }),
 ];
