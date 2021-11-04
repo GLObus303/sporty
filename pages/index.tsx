@@ -4,8 +4,6 @@ import { NextPage } from 'next';
 import { Layout } from '../components/Layout';
 import { Boxes } from '../components/Boxes';
 import { SCREEN } from '../constants';
-import { worker } from '../src/mocks/browser';
-import { server } from '../src/mocks/server';
 
 const HeroSection = styled.div`
   display: flex;
@@ -50,11 +48,11 @@ const DiscoverButton = styled.button`
 `;
 
 if (typeof window === 'undefined') {
-  const { server } = require('../src/mocks/server');
-  server.listen();
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require('../mocks/server').server.listen();
 } else {
-  const { worker } = require('../src/mocks/browser');
-  worker.start();
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require('../mocks/browser').worker.start();
 }
 
 const Home: NextPage = () => (

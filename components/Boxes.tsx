@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-
 import styled from 'styled-components';
 import Link from 'next/link';
 
@@ -55,8 +54,10 @@ export const Boxes: React.FC = () => {
   useEffect(() => {
     fetch('https://my.backend/book')
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then(setBooks);
   }, []);
+
+  console.log(books);
 
   return (
     <Container>
@@ -65,6 +66,7 @@ export const Boxes: React.FC = () => {
           <Card>
             <TextContainer>
               <h2>{sport}</h2>
+
               <Text>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Phasellus sodales posuere felis non efficitur. Mauris mollis
