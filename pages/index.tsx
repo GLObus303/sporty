@@ -47,14 +47,6 @@ const DiscoverButton = styled.button`
   }
 `;
 
-if (typeof window === 'undefined') {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  require('../mocks/server').server.listen();
-} else {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  require('../mocks/browser').worker.start();
-}
-
 const Home: NextPage = () => (
   <Layout>
     <HeroSection>

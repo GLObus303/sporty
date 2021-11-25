@@ -1,6 +1,9 @@
 import { useState, useEffect, Fragment } from 'react';
-import {useRouter} from 'next/router'
 import styled from 'styled-components';
+
+import { getSport } from '../api/sports';
+import { EventDetailType } from '../model/Event';
+import { Error } from './Error';
 
 const DetailBox = styled.div`
   display: flex;
@@ -8,14 +11,6 @@ const DetailBox = styled.div`
   min-height: 10%;
   background-color: white;
   overflow: hidden;
-`;
-
-const Image = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-width: 20%;
-  background-color: ${({ theme }) => theme.color.cream};
-  background-repeat: no-repeat;
 `;
 
 const Header = styled.header`
@@ -28,15 +23,16 @@ const DetailContent = styled.div`
 `;
 
 const List = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-width: 20%;
+  background-color: ${({ theme }) => theme.color.cream};
+  background-repeat: no-repeat;
   padding: 3rem;
 `;
 
 const ListHeaders = styled.header`
-  padding: 0.5rem;
-`;
-
-const ListDescription = styled.strong`
-  margin: 1rem;
+  padding-top: 0.5rem;
 `;
 
 const Divider = styled.hr`
@@ -54,61 +50,61 @@ const Content = styled.div`
   padding: 5rem;
 `;
 
-if (typeof window === 'undefined') {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  require('../mocks/server').server.listen();
-} else {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  require('../mocks/browser').worker.start();
-}
+type DetailListProps = {
+  eventId: string | undefined;
+};
 
-export const DetailList: React.FC = ({event_id}) => {
-  const [detail, setDetail] = useState<any[]>();
+export const DetailList: React.FC<DetailListProps> = ({ eventId }) => {
+  const [detail, setDetail] = useState<EventDetailType>();
 
   useEffect(() => {
-    fetch('/sportdetail')
-      .then((response) => response.json())
-      .then((data) => setDetail(data[event_id]));
-  }, [event_id]);
+    const getSportDetail = async () => {
+      if (eventId) {
+        const sportDetail = await getSport(eventId);
+
+        setDetail(sportDetail);
+      }
+    };
+
+    getSportDetail();
+  }, [eventId]);
+
+  if (!detail) {
+    // TODO: We should display message base on http status of the result - if 404 "not found", if anything else "sorry, something went wrong"
+    return <Error message="Omlouvame se, neco se pokazilo" />;
+  }
 
   return (
-    <DetailBox>
-      {
-        detail ? detail.map((info, index) => (
-          <Fragment key={index}>
-            <Image>
-              <List>
-                <ListHeaders>Location</ListHeaders>
-                <ListDescription>{info.location}</ListDescription>
+    <>
+      <DetailBox>
+        <List>
+          <ListHeaders>Location</ListHeaders>
+          <strong>{detail.location}</strong>
 
-                <ListHeaders>Date</ListHeaders>
-                <ListDescription>{info.date}</ListDescription>
+          <ListHeaders>Date</ListHeaders>
+          <strong>{detail.date}</strong>
 
-                <ListHeaders>Time</ListHeaders>
-                <ListDescription>{info.time}</ListDescription>
+          <ListHeaders>Time</ListHeaders>
+          <strong>{detail.time}</strong>
 
-                <ListHeaders>Activity</ListHeaders>
-                <ListDescription>{info.activity})</ListDescription>
+          <ListHeaders>Activity</ListHeaders>
+          <strong>{detail.activity}</strong>
 
-                <ListHeaders>Capacity</ListHeaders>
-                <ListDescription>{info.capacity}</ListDescription>
-                
-                <ListHeaders>Price</ListHeaders>
-                <ListDescription>{info.price}</ListDescription>
-              </List>
-            </Image>
-            <Content>
-              <Header>{info.event_name}</Header>
-              <DetailContent>
-                <Divider className="rounded" />
-                <Description>
-                  {info.text}
-                </Description>
-              </DetailContent>
-            </Content>
-          </Fragment>
-        )) : null
-      }
-    </DetailBox>
-  )
+          <ListHeaders>Capacity</ListHeaders>
+          <strong>{detail.capacity}</strong>
+
+          <ListHeaders>Price</ListHeaders>
+          <strong>{detail.price}</strong>
+        </List>
+
+        <Content>
+          <Header>{detail.eventName}</Header>
+          <DetailContent>
+            <Divider />
+            <Description>{detail.text}</Description>
+          </DetailContent>
+        </Content>
+      </DetailBox>
+    </>
+  );
 };

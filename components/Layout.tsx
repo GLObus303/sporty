@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 
 const Container = styled.div`
-  height: calc(100% - 1rem);
+  min-height: 100%;
   display: flex;
   flex-direction: column;
 `;
@@ -20,7 +20,6 @@ const Header = styled.header`
 `;
 
 const Content = styled.main`
-  height: 100%;
   flex: 1 0 auto;
   padding: 0rem;
 `;
@@ -35,12 +34,15 @@ const Footer = styled.footer`
   color: ${({ theme }) => theme.color.darkSienna};
 `;
 
-export const Layout: React.FC = ({ children }) => (
+export const Layout: React.FC<{ className?: string }> = ({
+  children,
+  className,
+}) => (
   <Container>
     <Header>
       <Link href="/">Sporty</Link>
     </Header>
-    <Content>{children}</Content>
+    <Content className={className}>{children}</Content>
     <Footer>© 2021 Ryonyx</Footer>
   </Container>
 );

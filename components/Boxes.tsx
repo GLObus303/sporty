@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 
+import { getSportList } from '../api/sports';
+import { EventType } from '../model/Event';
+
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -48,28 +51,34 @@ const Card = styled.div`
 `;
 
 export const Boxes: React.FC = () => {
-  const [sports, setSports] = useState<any[]>();
+  const [sports, setSports] = useState<EventType[]>();
 
   useEffect(() => {
-    fetch('/sports')
-      .then((response) => response.json())
-      .then((data) => setSports(data.sports));
+    const fetchSports = async () => {
+      const data = await getSportList();
+
+      setSports(data);
+    };
+
+    fetchSports();
   }, []);
+
+  if (!sports) {
+    return null;
+  }
 
   return (
     <Container>
-      {sports ? sports.map((sport, index) => (
-        <Link href={`/detail/?event_id=${`60333292-7ca1-4361-bf38-b6b43b90cb16`}`} key={index}>
+      {sports.map(({ id, title, description }) => (
+        <Link href={`/detail/${id}`} key={id}>
           <Card>
             <TextContainer>
-              <h2>{sport.title}</h2>
-              <Text>
-                {sport.description}
-              </Text>
+              <h2>{title}</h2>
+              <Text>{description}</Text>
             </TextContainer>
           </Card>
         </Link>
-      )) : null}
+      ))}
     </Container>
   );
 };
