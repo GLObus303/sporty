@@ -1,9 +1,11 @@
+import { useState, useEffect, Fragment } from 'react';
+import {useRouter} from 'next/router'
 import styled from 'styled-components';
 
 const DetailBox = styled.div`
   display: flex;
   min-width: 50%;
-  min-height: 100%;
+  min-height: 10%;
   background-color: white;
   overflow: hidden;
 `;
@@ -52,47 +54,61 @@ const Content = styled.div`
   padding: 5rem;
 `;
 
-export const DetailList = () => (
-  <DetailBox>
-    <Image>
-      <List>
-        <ListHeaders>Location</ListHeaders>
-        <ListDescription>U průhonu 7a, Praha</ListDescription>
+if (typeof window === 'undefined') {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require('../mocks/server').server.listen();
+} else {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require('../mocks/browser').worker.start();
+}
 
-        <ListHeaders>Date</ListHeaders>
-        <ListDescription>28.2.2022</ListDescription>
+export const DetailList: React.FC = ({event_id}) => {
+  const [detail, setDetail] = useState<any[]>();
 
-        <ListHeaders>Time</ListHeaders>
-        <ListDescription>15:00</ListDescription>
+  useEffect(() => {
+    fetch('/sportdetail')
+      .then((response) => response.json())
+      .then((data) => setDetail(data[event_id]));
+  }, [event_id]);
 
-        <ListHeaders>Activity</ListHeaders>
-        <ListDescription>Odpolední výběh na Vítkov</ListDescription>
+  return (
+    <DetailBox>
+      {
+        detail ? detail.map((info, index) => (
+          <Fragment key={index}>
+            <Image>
+              <List>
+                <ListHeaders>Location</ListHeaders>
+                <ListDescription>{info.location}</ListDescription>
 
-        <ListHeaders>Capacity</ListHeaders>
-        <ListDescription>100</ListDescription>
+                <ListHeaders>Date</ListHeaders>
+                <ListDescription>{info.date}</ListDescription>
 
-        <ListHeaders>Price</ListHeaders>
-        <ListDescription>Zdarma</ListDescription>
-      </List>
-    </Image>
-    <Content>
-      <Header>Name of the event</Header>
-      <DetailContent>
-        <Divider className="rounded" />
-        <Description>
-          There are many variations of passages of Lorem Ipsum available, but
-          the majority have suffered alteration in some form, by injected
-          humour, or randomised words which don't look even slightly believable.
-          If you are going to use a passage of Lorem Ipsum, you need to be sure
-          there isn't anything embarrassing hidden in the middle of text. All
-          the Lorem Ipsum generators on the Internet tend to repeat predefined
-          chunks as necessary, making this the first true generator on the
-          Internet. It uses a dictionary of over 200 Latin words, combined with
-          a handful of model sentence structures, to generate Lorem Ipsum which
-          looks reasonable. The generated Lorem Ipsum is therefore always free
-          from repetition, injected humour, or non-characteristic words etc.
-        </Description>
-      </DetailContent>
-    </Content>
-  </DetailBox>
-);
+                <ListHeaders>Time</ListHeaders>
+                <ListDescription>{info.time}</ListDescription>
+
+                <ListHeaders>Activity</ListHeaders>
+                <ListDescription>{info.activity})</ListDescription>
+
+                <ListHeaders>Capacity</ListHeaders>
+                <ListDescription>{info.capacity}</ListDescription>
+                
+                <ListHeaders>Price</ListHeaders>
+                <ListDescription>{info.price}</ListDescription>
+              </List>
+            </Image>
+            <Content>
+              <Header>{info.event_name}</Header>
+              <DetailContent>
+                <Divider className="rounded" />
+                <Description>
+                  {info.text}
+                </Description>
+              </DetailContent>
+            </Content>
+          </Fragment>
+        )) : null
+      }
+    </DetailBox>
+  )
+};

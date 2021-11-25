@@ -2,8 +2,8 @@ import { NextPage } from 'next';
 import {useRouter} from 'next/router'
 import styled from 'styled-components';
 
-import { Layout } from '../components/Layout';
-import { DetailList } from '../components/DetailList';
+import { Layout } from '../../components/Layout';
+import { DetailList } from '../../components/DetailList';
 
 const Container = styled.div`
   min-height: 100%;

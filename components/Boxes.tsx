@@ -48,36 +48,28 @@ const Card = styled.div`
 `;
 
 export const Boxes: React.FC = () => {
-  const [books, setBooks] = useState();
-  const sports = ['fotbal', 'tenis', 'bowling', 'pingpong'];
+  const [sports, setSports] = useState<any[]>();
 
   useEffect(() => {
-    fetch('https://my.backend/book')
+    fetch('/sports')
       .then((response) => response.json())
-      .then(setBooks);
+      .then((data) => setSports(data.sports));
   }, []);
-
-  console.log(books);
 
   return (
     <Container>
-      {sports.map((sport, index) => (
-        <Link href="/detail" key={index}>
+      {sports ? sports.map((sport, index) => (
+        <Link href={`/detail/?event_id=${`60333292-7ca1-4361-bf38-b6b43b90cb16`}`} key={index}>
           <Card>
             <TextContainer>
-              <h2>{sport}</h2>
-
+              <h2>{sport.title}</h2>
               <Text>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus sodales posuere felis non efficitur. Mauris mollis
-                elit urna, id tempus. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Phasellus sodales posuere felis non efficitur.
-                Mauris mollis elit urna, id tempus.
+                {sport.description}
               </Text>
             </TextContainer>
           </Card>
         </Link>
-      ))}
+      )) : null}
     </Container>
   );
 };

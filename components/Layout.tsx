@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 
 const Container = styled.div`
-  min-height: 100%;
+  height: calc(100% - 1rem);
   display: flex;
   flex-direction: column;
 `;
