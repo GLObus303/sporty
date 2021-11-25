@@ -50,7 +50,7 @@ const DiscoverButton = styled.button`
 const Home: NextPage = () => (
   <Layout>
     <HeroSection>
-      <Headline>Do what you love, but with people!</Headline>
+      <Headline>Do what you love, but with uglier design!</Headline>
       <DiscoverButton>DISCOVER</DiscoverButton>
     </HeroSection>
     <Boxes />
