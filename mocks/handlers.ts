@@ -1,8 +1,8 @@
 import { rest } from 'msw';
 
-import { Event, EventType } from '../model/Event';
+import { EventType, ActivityTypeType } from '../model/Event';
 
-let event: Event[] = [
+const event: EventType[] = [
   {
     id: '60333292-7ca1-4361-bf38-b6b43b90cb16',
     title: 'LOLO',
@@ -49,7 +49,7 @@ let event: Event[] = [
   },
 ];
 
-const eventTypeList: EventType[] = [
+const ActivityTypeTypeList: ActivityTypeType[] = [
   {
     id: '1',
     title: 'Footbal',
@@ -73,7 +73,9 @@ const eventTypeList: EventType[] = [
 ];
 
 export const handlers = [
-  rest.get('/eventType', (req, res, ctx) => res(ctx.json(eventTypeList))),
+  rest.get('/ActivityTypeType', (req, res, ctx) =>
+    res(ctx.json(ActivityTypeTypeList)),
+  ),
   rest.get('/event', (req, res, ctx) => res(ctx.json(event))),
   rest.get('/event/:eventId', (req, res, ctx) => {
     const { eventId } = req.params;
@@ -81,23 +83,6 @@ export const handlers = [
     const eve = event.filter((ev) => ev.id === eventId);
 
     return res(ctx.json(eve[0]));
-  }),
-  rest.post('/newevent', (req, res, ctx) => {
-    const id = eventTypeList[eventTypeList.length - 1]?.id + 1 || 1;
-    const newEvent = {
-      id: id,
-      title: req.body.title,
-      location: req.body.location,
-      date: req.body.date,
-      time: req.body.time,
-      capacity: req.body.capacity,
-      price: req.body.price,
-      description: req.body.description,
-    };
-    event = [...event, newEvent];
-    console.log(event);
-
-    return res(ctx.delay(500), ctx.status(201), ctx.json(newEvent));
   }),
   rest.post('https://telemetry.nextjs.org/api/v1/record', (_, res) => res()),
 ];

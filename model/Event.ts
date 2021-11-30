@@ -1,4 +1,4 @@
-export type Event = {
+export type EventType = {
   id: string;
   title: string;
   location: string;
@@ -9,7 +9,7 @@ export type Event = {
   description: string;
 };
 
-export type EventType = {
+export type ActivityTypeType = {
   id: string;
   title: string;
 };
