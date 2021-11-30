@@ -1,16 +1,15 @@
-export type EventDetailType = {
+export type Event = {
+  id: string;
+  title: string;
   location: string;
   date: string;
   time: string;
-  activity: string;
   capacity: number;
   price: string;
-  eventName: string;
-  text: string;
+  description: string;
 };
 
 export type EventType = {
   id: string;
   title: string;
-  description: string;
 };

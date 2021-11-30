@@ -1,8 +1,8 @@
 import { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
 
-import { getSport } from '../api/sports';
-import { EventDetailType } from '../model/Event';
+import { getEvent } from '../api/sports';
+import { Event } from '../model/Event';
 import { Error } from './Error';
 
 const DetailBox = styled.div`
@@ -55,13 +55,14 @@ type DetailListProps = {
 };
 
 export const DetailList: React.FC<DetailListProps> = ({ eventId }) => {
-  const [detail, setDetail] = useState<EventDetailType>();
+  const [detail, setDetail] = useState<Event>();
 
   useEffect(() => {
     const getSportDetail = async () => {
       if (eventId) {
-        const sportDetail = await getSport(eventId);
+        const sportDetail = await getEvent(eventId);
 
+        console.log(sportDetail);
         setDetail(sportDetail);
       }
     };
@@ -98,10 +99,10 @@ export const DetailList: React.FC<DetailListProps> = ({ eventId }) => {
         </List>
 
         <Content>
-          <Header>{detail.eventName}</Header>
+          <Header>{detail.title}</Header>
           <DetailContent>
             <Divider />
-            <Description>{detail.text}</Description>
+            <Description>{detail.description}</Description>
           </DetailContent>
         </Content>
       </DetailBox>

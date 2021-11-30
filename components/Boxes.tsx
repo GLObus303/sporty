@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 
-import { getSportList } from '../api/sports';
-import { EventType } from '../model/Event';
+import { getEventList } from '../api/sports';
+import { Event } from '../model/Event';
 
 const Container = styled.div`
   display: flex;
@@ -51,11 +51,11 @@ const Card = styled.div`
 `;
 
 export const Boxes: React.FC = () => {
-  const [sports, setSports] = useState<EventType[]>();
+  const [sports, setSports] = useState<Event[]>();
 
   useEffect(() => {
     const fetchSports = async () => {
-      const data = await getSportList();
+      const data = await getEventList();
 
       setSports(data);
     };

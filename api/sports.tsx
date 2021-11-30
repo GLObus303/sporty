@@ -1,7 +1,11 @@
-import { EventDetailType, EventType } from '../model/Event';
-import { axiosGet } from './base';
+import { EventType, Event } from '../model/Event';
+import { axiosGet, axiosPost } from './base';
 
-export const getSport = (eventId: string) =>
-  axiosGet<EventDetailType>(`/sportdetail/${eventId}`);
+export const getEventList = () => axiosGet<Event>(`/event/`);
 
-export const getSportList = () => axiosGet<EventType[]>('/sports');
+export const getEvent = (eventId: string) =>
+  axiosGet<Event>(`/event/${eventId}`);
+
+export const getEventType = () => axiosGet<EventType[]>('/eventType');
+
+export const createEvent = (body) => axiosPost<Event>('/newevent', body);
