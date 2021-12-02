@@ -9,7 +9,8 @@
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
     "lint": "eslint .",
-    "type-check:husky": "tsc -p tsconfig.json --noEmit"
+    "type-check:husky": "tsc -p tsconfig.json --noEmit",
+    "prod-check": "prettier --check . && lint && type-check:husky"
   },
   "dependencies": {
     "axios": "^0.21.1",
