@@ -6,6 +6,14 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from '../components/GlobalStyle';
 import { appTheme } from '../constants/theme';
 
+if (typeof window === 'undefined') {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require('../mocks/server').server.listen();
+} else {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require('../mocks/browser').worker.start();
+}
+
 const CustomApp = ({ Component, pageProps }: AppProps) => (
   <>
     <Head>

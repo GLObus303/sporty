@@ -1,7 +1,7 @@
 export const appTheme = {
   color: {
-    sunRay: '#FFB319', // primary
-    cheerfulHue: '#FFE194', // secondary
+    cream: '#FFFACC', // primary
+    darkSienna: '#53131E', // secondary
     bathSalt: '#B8DFD8', // tertiary
     shiroiWhite: '#E8F6EF', // background
   },

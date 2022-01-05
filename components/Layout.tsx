@@ -1,21 +1,27 @@
 import styled from 'styled-components';
+import Link from 'next/link';
 
 const Container = styled.div`
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
 `;
 
 const Header = styled.header`
   padding: 1rem 2rem;
-  background-color: ${({ theme }) => theme.color.sunRay};
+  background-color: ${({ theme }) => theme.color.cream};
   font-size: 1.5rem;
   font-weight: 700;
+
+  a {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
 `;
 
 const Content = styled.main`
   flex: 1 0 auto;
-  padding: 2rem;
+  padding: 0rem;
 `;
 
 const Footer = styled.footer`
@@ -24,14 +30,19 @@ const Footer = styled.footer`
   align-items: center;
   flex-shrink: 0;
   padding: 1rem;
-  background-color: ${({ theme }) => theme.color.sunRay};
-  color: ${({ theme }) => theme.color.cheerfulHue};
+  background-color: ${({ theme }) => theme.color.cream};
+  color: ${({ theme }) => theme.color.darkSienna};
 `;
 
-export const Layout: React.FC = ({ children }) => (
+export const Layout: React.FC<{ className?: string }> = ({
+  children,
+  className,
+}) => (
   <Container>
-    <Header>Sporty</Header>
-    <Content>{children}</Content>
+    <Header>
+      <Link href="/">Sporty</Link>
+    </Header>
+    <Content className={className}>{children}</Content>
     <Footer>© 2021 Ryonyx</Footer>
   </Container>
 );
