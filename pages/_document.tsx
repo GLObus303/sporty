@@ -17,8 +17,8 @@ class MyDocument extends Document<DocumentProps> {
     const sheet = new ServerStyleSheet();
 
     try {
-      const page = ctx.renderPage((App) => (props) =>
-        sheet.collectStyles(<App {...props} />),
+      const page = ctx.renderPage(
+        (App) => (props) => sheet.collectStyles(<App {...props} />),
       );
 
       const styleTags = sheet.getStyleElement();
